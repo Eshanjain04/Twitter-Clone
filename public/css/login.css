@@ -1,11 +1,16 @@
 body{
-    background-color : #0099ff
+    background-color : #0099ff;
+    font-family: "Roboto";
 }
 
+h1{
+    font-family: 'Arima';
+    font-weight: bold;
+}
 .wrapper{
     display:flex;
     justify-content:center;
-    margin-top : 200px;
+    margin-top : 100px;
 }
 
 .loginContainer{
@@ -25,7 +30,7 @@ body{
 }
 
 input[type="text"], input[type="password"],input[type="email"]{
-    margin-bottom:10px;
+    margin-bottom:15px;
     background-color:#f2f2f2;
     padding : 5px 10px;
     border-radius : 3px;
