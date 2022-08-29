@@ -1,0 +1,41 @@
+mixin createpostForm(userLoggedin)
+    .postFormContainer
+        .userImageContainer 
+            img(src=userLoggedin.profilePic alt="Profile image")
+        .textareaContainer  
+            textarea#posttextarea(placeholder="What's Happening")
+            .buttonContainer 
+                button#submitPostButton(disabled="") Post
+
+mixin createReplyModal(userLoggedin)
+    #replyModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='replyModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#replyModalLabel.modal-title Reply
+                .modal-body
+                    #originalPostsContainer
+                    .postFormContainer
+                        .userImageContainer 
+                            img(src=userLoggedin.profilePic alt="Profile image")
+                        .textareaContainer  
+                            textarea#replytextarea(placeholder="What's Happening")
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                    button#submitReplyButton.btn.btn-primary(type='button', disabled="") Reply
+
+mixin createDeletePostModal()
+    #deletePostModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='deletePostModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#deletePostModalLabel.modal-title Delete the post?
+                .modal-body
+                    p Are you sure you want to delete?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                    button#deletePostButton.btn.btn-primary(type='button') Delete
+
+mixin createPostModals(userLoggedin)
+    +createReplyModal(userLoggedin)
+    +createDeletePostModal()

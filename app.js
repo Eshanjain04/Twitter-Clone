@@ -24,8 +24,18 @@ app.use(session({
 
 const loginRoute = require("./Routes/loginRoute");
 const registerRoutes = require("./Routes/registerRoutes");
+const logoutRoutes = require("./Routes/logout");
+const postRoutes = require("./Routes/postRoutes");
+const profileRoutes = require("./Routes/profileRoutes");
+
+const postsApiRoutes = require("./Routes/api/posts");
+
 app.use("/register",registerRoutes);
 app.use("/login",loginRoute);
+app.use("/logout",logoutRoutes);
+app.use("/posts",middleWare.requireLogin,postRoutes);
+app.use("/profile",middleWare.requireLogin,profileRoutes);
+app.use("/api/posts",postsApiRoutes);
 
 app.set("view engine", "pug");
 app.set("views","views");
@@ -36,7 +46,9 @@ app.use(express.static(path.join(__dirname,"public")));
 app.get("/",middleWare.requireLogin,(req,res,next)=>{
 
     var payload = {
-        pageTitle : "Home"
+        pageTitle : `Welcome ${req.session.user.firstName}`,
+        userLoggedin : req.session.user,
+        userLoggedinJS : JSON.stringify(req.session.user)
     }
     res.status(200).render("home",payload);
 })
