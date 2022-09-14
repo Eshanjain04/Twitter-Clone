@@ -11,7 +11,15 @@ router.use(express.urlencoded({extended:true}));
 router.use(express.json());
 
 router.get("/",async (req,res,next)=>{
-    var results = await getPosts({});
+    var searchObject = req.query;
+
+    if(searchObject.isReply !== undefined) {
+        var isReply = searchObject.isReply == "true";
+        searchObject.replyTo = { $exists: isReply };
+        delete searchObject.isReply;
+    }
+
+    var results = await getPosts(searchObject);
     res.status(200).send(results);
     
 });
