@@ -33,4 +33,28 @@ router.put("/:userId/follow",async (req,res,next)=>{
   res.status(200).send(req.session.user);
 });
 
+router.get("/:userId/following",async (req,res,next)=>{
+    User.findById(req.params.userId)
+    .populate("following")
+    .then(data=>{
+      res.status(200).send(data)
+    })
+    .catch(e=> {
+      console.log(e);
+      res.sendStatus(400)
+    })
+});
+
+router.get("/:userId/followers",async (req,res,next)=>{
+  User.findById(req.params.userId)
+  .populate("followers")
+  .then(data=>{
+    res.status(200).send(data)
+  })
+  .catch(e=> {
+    console.log(e);
+    res.sendStatus(404)
+  })
+});
+
 module.exports = router;
