@@ -27,6 +27,7 @@ const registerRoutes = require("./Routes/registerRoutes");
 const logoutRoutes = require("./Routes/logout");
 const postRoutes = require("./Routes/postRoutes");
 const profileRoutes = require("./Routes/profileRoutes");
+const searchRoutes = require("./Routes/searchRoutes");
 
 const postsApiRoutes = require("./Routes/api/posts");
 const usersApiRoutes = require("./Routes/api/users");
@@ -38,6 +39,7 @@ app.use("/posts",middleWare.requireLogin,postRoutes);
 app.use("/profile",middleWare.requireLogin,profileRoutes);
 app.use("/api/posts",postsApiRoutes);
 app.use("/api/users",usersApiRoutes);
+app.use("/search",middleWare.requireLogin,searchRoutes);
 
 app.set("view engine", "pug");
 app.set("views","views");
